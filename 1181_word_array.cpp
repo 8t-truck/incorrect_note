@@ -5,9 +5,9 @@
 using namespace std;
 int main(void) 
 {
-	//vector·Î ÀÔ·Â ¹Ş°í size()·Î ÀÛÀº ¼øÀ¸·Î ´Ù¸¥º¤ÅÍ¿¡
-	//ÁÙ¼¼¿ì±â ÈÄ °°Àº size°¡ ¾ø´Ù¸é sortÇÔ¼ö·Î Á¤·ÄÇÏ±â
-	//±×¸®°í ´ÙÀ½ Å©±âÀÇ °ªµéÀ» ÀÔ·Â.Áßº¹Àº ¸¶Áö¸·¿¡ ¾ø¾Ö±â
+	//vectorë¡œ ì…ë ¥ ë°›ê³  size()ë¡œ ì‘ì€ ìˆœìœ¼ë¡œ ë‹¤ë¥¸ë²¡í„°ì—
+	//ì¤„ì„¸ìš°ê¸° í›„ ê°™ì€ sizeê°€ ì—†ë‹¤ë©´ sortí•¨ìˆ˜ë¡œ ì •ë ¬í•˜ê¸°
+	//ê·¸ë¦¬ê³  ë‹¤ìŒ í¬ê¸°ì˜ ê°’ë“¤ì„ ì…ë ¥.ì¤‘ë³µì€ ë§ˆì§€ë§‰ì— ì—†ì• ê¸°
 	vector<string> t;
 	vector<string> arr;
 	string temp;
@@ -18,13 +18,14 @@ int main(void)
 		cin >> temp;
 		t.push_back(temp);
 	}
-	//sort(t.begin(), t.end());
-	//t.erase(unique(t.begin(), t.end()), t.end());
+	sort(t.begin(), t.end());
+	t.erase(unique(t.begin(), t.end()), t.end());
+
 
 	while(t.size()!=0)
 	{
-		for (int i = 0; i < test; i++)
-		{//ÃÖ¼Ò°ª Ã£°í index¿¡ À§Ä¡ ÀúÀå
+		for (int i = 0; i < t.size(); i++)
+		{//ìµœì†Œê°’ ì°¾ê³  indexì— ìœ„ì¹˜ ì €ì¥
 			if (min > t[i].length())
 			{
 				min = t[i].length();
@@ -33,21 +34,31 @@ int main(void)
 		}
 		arr.push_back(t[index]);
 		t.erase(t.begin() + index);
-		//t.erase(remove(t.begin(), t.end(), t[index]));//¿À·ù ¹ß»ı(ÀÌÀ¯ ¸ğ¸§)
-		//**remove ÇÔ¼ö´Â °ªÀ» 
+		//t.erase(remove(t.begin(), t.end(), t[index]));//ì˜¤ë¥˜ ë°œìƒ(ì´ìœ  ëª¨ë¦„)
+		//**remove í•¨ìˆ˜ëŠ” ê°’ì„ 
 		min = 50;
-		test = t.size();//¿©±â±îÁö ±æÀÌ ÂªÀº °Å ÀúÀå
-		for (int i = 0; i < test; i++)
-		{
-			cout << t[i] << endl;
-		}
-		cout << "--------------------" << endl;
+		
 	}
-	cout << "--------------------" << endl;
+	min = 0;
+	int len = arr[0].length();
+	while(min<arr.size()-1)
+	{
+		for (int j = min; j < arr.size(); j++)
+		{
+			if (len < arr[j].length())
+			{
+				index = j;
+				len = arr[j].length();
+				break;
+			}
+		}
+		sort(arr.begin() + min, arr.begin() + index);
+		min = index;
 
+	}
 	for (int i = 0; i <arr.size(); i++)
 	{
 		cout << arr[i] << endl;
 	}
 	return 0;
-}
+}//ì‹œê°„ì´ˆê³¼
